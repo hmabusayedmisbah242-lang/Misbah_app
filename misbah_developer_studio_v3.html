@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d18">
+<title>Misbah Developer — All-in-One Studio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{--bg:#080d18;--panel:#101a2b;--line:#26354c;--cyan:#28e7f2;--purple:#a78bfa;--muted:#9aabc2}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#132744 0,transparent 36%),radial-gradient(ellipse at 90% 25%,#21163e 0,transparent 30%),var(--bg);color:#e8f0fc;font-family:'Hind Siliguri',sans-serif;min-height:100vh}
+.code{font-family:'Fira Code',monospace}.glass{background:linear-gradient(145deg,rgba(22,35,56,.9),rgba(12,20,34,.88));border:1px solid rgba(148,177,216,.14);box-shadow:0 12px 35px #0003;backdrop-filter:blur(14px)}
+.gradient{background:linear-gradient(100deg,#28e7f2,#7c9cff,#c084fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{border:1px solid #34445d;background:#17243a;border-radius:12px;padding:10px 13px;font-weight:700;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn:hover{transform:translateY(-2px);border-color:#28e7f2;box-shadow:0 8px 24px #28e7f222}.btn:active{transform:scale(.97)}.primary{background:linear-gradient(110deg,#06b6d4,#6366f1);color:white;border:0}.success{background:linear-gradient(110deg,#10b981,#0d9488);color:#041510;border:0}
+.field{width:100%;background:#080f1d;border:1px solid #2b3b53;border-radius:11px;padding:10px 12px;color:#e8f0fc;outline:none}.field:focus{border-color:#28e7f2;box-shadow:0 0 0 3px #28e7f21a}.label{display:block;font-size:12px;color:#a9bad0;font-weight:700;margin:0 0 6px}.muted{color:var(--muted)}.navitem{width:100%;display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:12px;color:#b7c5d8;text-align:left;font-size:14px}.navitem:hover,.navitem.active{background:linear-gradient(90deg,#0e749044,transparent);color:#55eaf2}.navitem.active{border-left:3px solid #28e7f2}
+.page{display:none;animation:rise .45s ease both}.page.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes glow{0%,100%{box-shadow:0 0 12px #28e7f222}50%{box-shadow:0 0 28px #a78bfa55}}@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.float{animation:float 4s ease-in-out infinite}.glow{animation:glow 3s ease-in-out infinite}.shimmer{background:linear-gradient(100deg,#28e7f2,#818cf8,#c084fc,#28e7f2);background-size:200% auto;animation:shimmer 5s linear infinite}
+.reveal{opacity:0;transform:translateY(16px);transition:.55s ease}.reveal.visible{opacity:1;transform:none}
+#sidebar{transform:translateX(-105%);transition:transform .3s ease}#sidebar.open{transform:translateX(0)}#overlay{opacity:0;pointer-events:none;transition:.25s}#overlay.show{opacity:1;pointer-events:auto}
+.toast{position:fixed;z-index:100;top:18px;left:50%;transform:translate(-50%,-20px);opacity:0;pointer-events:none;transition:.25s;background:#14243a;border:1px solid #28e7f2;color:#efffff;border-radius:999px;padding:10px 17px;font-size:13px;box-shadow:0 10px 30px #0008}.toast.show{opacity:1;transform:translate(-50%,0)}
+.preview{width:100%;height:330px;background:white;border:0;border-radius:12px}.tab{padding:8px 12px;border-radius:9px;font-size:12px;background:#111d30;color:#aabbd0}.tab.active{background:#0e7490;color:white}
+@media(min-width:900px){.shell{max-width:1400px;margin:auto;display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}.sidebar-desktop{position:sticky;top:0;height:100vh}.mobile-head{display:none!important}main{padding:28px!important}.pagegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.span2{grid-column:span 2}}
+</style>
+</head>
+<body>
+<div id="toast" class="toast"><i class="fa-solid fa-circle-check mr-2"></i><span id="toastText">সম্পন্ন হয়েছে</span></div>
+<div class="shell">
+<aside class="sidebar-desktop hidden lg:flex flex-col p-4 border-r border-slate-700/50 bg-[#091222]/90">
+ <div class="flex items-center gap-3 p-3 mb-6"><div class="w-11 h-11 rounded-2xl shimmer flex items-center justify-center text-slate-950 text-xl"><i class="fa-solid fa-code"></i></div><div><div class="font-extrabold tracking-wider">MISBAH <span class="gradient">DEV</span></div><div class="text-[10px] muted code">ALL-IN-ONE STUDIO</div></div></div>
+ <nav id="desktopNav" class="space-y-1 flex-1"></nav><div class="glass rounded-xl p-3 text-xs muted">Built with care in Bangladesh<br><span class="gradient font-bold">Platform UI • v3.0</span></div>
+</aside>
+<div class="min-w-0">
+<header class="mobile-head sticky top-0 z-30 flex items-center justify-between px-4 py-3 border-b border-slate-700/60 bg-[#091222]/90 backdrop-blur-xl lg:hidden">
+ <div class="flex items-center gap-3"><button class="btn !p-2" onclick="openMenu()"><i class="fa-solid fa-bars"></i></button><div><div class="font-black text-sm tracking-wider">MISBAH <span class="gradient">DEV</span></div><div id="clock" class="text-[10px] code text-cyan-300">--:--:--</div></div></div>
+ <div class="flex gap-2"><button class="btn !p-2" onclick="go('dashboard')" title="Dashboard"><i class="fa-solid fa-chart-pie"></i></button><button class="btn !p-2" onclick="go('admin')" title="Admin"><i class="fa-solid fa-shield-halved"></i></button></div>
+</header>
+<div id="overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 lg:hidden" onclick="closeMenu()"></div>
+<aside id="sidebar" class="fixed z-50 top-0 left-0 h-full w-[285px] p-4 bg-[#0b1526] border-r border-slate-700 lg:hidden flex flex-col">
+ <div class="flex justify-between items-center mb-5"><b class="gradient">MISBAH DEVELOPER</b><button class="btn !p-2" onclick="closeMenu()"><i class="fa-solid fa-xmark"></i></button></div><nav id="mobileNav" class="space-y-1 flex-1"></nav><div class="text-center text-xs muted py-3 border-t border-slate-700">© 2026 Misbah Developer</div>
+</aside>
+<main class="p-4 md:p-7 space-y-5 max-w-[1180px] mx-auto">
+<!-- HOME -->
+<section id="home" class="page active space-y-5">
+ <div class="glass rounded-3xl p-6 md:p-9 relative overflow-hidden glow">
+  <div class="absolute -right-16 -top-20 w-64 h-64 rounded-full bg-cyan-400/10 blur-3xl"></div><div class="absolute right-12 bottom-0 text-[110px] text-cyan-300/10 float"><i class="fa-solid fa-laptop-code"></i></div>
+  <span class="inline-flex rounded-full bg-cyan-400/10 text-cyan-300 px-3 py-1 text-[11px] font-bold tracking-widest">ALL-IN-ONE DEVELOPER PLATFORM</span>
+  <h1 class="text-3xl md:text-5xl font-black leading-tight mt-4">Build. Create. <span class="gradient">Launch.</span></h1>
+  <p class="muted mt-3 max-w-2xl text-sm md:text-base">ওয়েবসাইট তৈরি, কোড এডিট, প্রজেক্ট ZIP, Android Studio source package, Telegram bot script এবং প্রয়োজনীয় developer tools—সব এক জায়গায়।</p>
+  <div class="flex flex-wrap gap-3 mt-6"><button class="btn primary" onclick="go('builder')"><i class="fa-solid fa-wand-magic-sparkles"></i> শুরু করুন</button><button class="btn" onclick="go('tools')"><i class="fa-solid fa-toolbox"></i> Developer Tools</button></div>
+ </div>
+ <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="stats">
+  <div class="glass rounded-2xl p-4"><div class="text-cyan-300 text-2xl"><i class="fa-solid fa-cubes"></i></div><div class="text-2xl font-black mt-2" id="statVersions">0</div><div class="text-xs muted">Project templates</div></div>
+  <div class="glass rounded-2xl p-4"><div class="text-purple-300 text-2xl"><i class="fa-solid fa-screwdriver-wrench"></i></div><div class="text-2xl font-black mt-2">8+</div><div class="text-xs muted">Online utilities</div></div>
+  <div class="glass rounded-2xl p-4"><div class="text-emerald-300 text-2xl"><i class="fa-brands fa-android"></i></div><div class="text-2xl font-black mt-2">APK</div><div class="text-xs muted">Source package</div></div>
+  <div class="glass rounded-2xl p-4"><div class="text-pink-300 text-2xl"><i class="fa-solid fa-cloud-arrow-down"></i></div><div class="text-2xl font-black mt-2" id="statDownloads">0</div><div class="text-xs muted">Local downloads</div></div>
+ </div>
+ <div><div class="flex items-center justify-between mb-3"><h2 class="font-extrabold text-lg">Explore Studio</h2><span class="text-xs muted">Choose a workspace</span></div><div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="quickCards"></div></div>
+ <div class="glass rounded-2xl p-4"><div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-circle-info text-cyan-300"></i><b>গুরুত্বপূর্ণ তথ্য</b></div><p class="text-xs muted leading-relaxed">এই ফাইলটি একটি browser-based frontend studio। প্রজেক্ট ও সেটিংস এই ডিভাইসের browser storage-এ থাকে। প্রকৃত APK build, cloud sync, user login এবং নিরাপদ admin access-এর জন্য backend/server ও Android build pipeline সংযুক্ত করতে হবে।</p></div>
+</section>
+<!-- BUILDER -->
+<section id="builder" class="page space-y-4">
+ <div><h2 class="text-2xl font-black"><i class="fa-solid fa-code text-purple-300 mr-2"></i>Website Builder Studio</h2><p class="muted text-sm">Template নির্বাচন করুন, HTML সম্পাদনা করুন এবং live preview দেখুন।</p></div>
+ <div class="pagegrid">
+ <div class="glass rounded-2xl p-4 space-y-3">
+  <div><label class="label">Project / Website name</label><input id="siteTitle" class="field" value="Misbah Developer Portfolio"></div>
+  <div class="grid grid-cols-2 gap-3"><div><label class="label">Template</label><select id="template" class="field" onchange="loadTemplate()"><option value="portfolio">Developer Portfolio</option><option value="business">Business Landing Page</option><option value="store">Mini Store</option><option value="agency">Tech Agency</option></select></div><div><label class="label">Accent color</label><input id="accent" type="color" value="#06b6d4" class="field h-[42px] p-1" oninput="setAccent()"></div></div>
+  <div class="flex flex-wrap gap-2"><button class="btn primary" onclick="refreshPreview()"><i class="fa-solid fa-rotate"></i> Preview</button><button class="btn" onclick="saveProject()"><i class="fa-solid fa-floppy-disk"></i> Save</button><button class="btn success" onclick="exportWebsite()"><i class="fa-solid fa-file-zipper"></i> Export ZIP</button></div>
+  <div class="text-xs muted">Editor-এ HTML, CSS ও JavaScript একসঙ্গে লিখতে পারবেন। ZIP-এ index.html এবং README.md থাকবে।</div>
+ </div>
+ <div class="glass rounded-2xl p-4"><div class="flex justify-between items-center mb-2"><b class="text-sm">Live Preview</b><span class="text-xs text-emerald-300"><i class="fa-solid fa-circle text-[7px]"></i> LOCAL</span></div><iframe id="preview" class="preview" sandbox="allow-scripts allow-forms"></iframe></div>
+ <div class="glass rounded-2xl p-4 span2"><div class="flex justify-between items-center mb-2"><b class="text-sm">Source Code Editor</b><span class="text-[10px] muted code">HTML</span></div><textarea id="editor" class="field code text-xs leading-relaxed" rows="18" spellcheck="false" oninput="debouncedPreview()"></textarea></div>
+ </div>
+</section>
+<!-- APK -->
+<section id="apk" class="page space-y-4">
+ <div><h2 class="text-2xl font-black"><i class="fa-brands fa-android text-emerald-300 mr-2"></i>Android Project Studio</h2><p class="muted text-sm">Android Studio-তে build করার জন্য WebView project source ZIP তৈরি করুন।</p></div>
+ <div class="glass rounded-2xl p-5 space-y-3 max-w-3xl">
+  <div><label class="label">Application name</label><input id="appName" class="field" value="Misbah App"></div>
+  <div><label class="label">Package identifier</label><input id="packageId" class="field code" value="com.misbah.app"></div>
+  <div><label class="label">Website URL (https://) অথবা নিজের HTML code</label><input id="appUrl" class="field" value="https://example.com"></div>
+  <div class="grid grid-cols-2 gap-3"><div><label class="label">Version</label><input id="appVersion" class="field" value="1.0.0"></div><div><label class="label">Screen orientation</label><select id="orientation" class="field"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div></div>
+  <div class="grid grid-cols-2 gap-2 text-sm"><label><input type="checkbox" id="permInternet" checked> Internet access</label><label><input type="checkbox" id="permCamera"> Camera permission</label></div>
+  <button class="btn success w-full" onclick="makeAndroidZip()"><i class="fa-solid fa-box-archive"></i> Generate Android Studio Source ZIP</button>
+  <p class="text-xs muted">নোট: browser-এ সরাসরি signed APK compile হয় না। এখানে Gradle project source তৈরি হবে; Android Studio/Gradle দিয়ে APK build করতে হবে।</p>
+ </div>
+</section>
+<!-- BOT -->
+<section id="bot" class="page space-y-4">
+ <div><h2 class="text-2xl font-black"><i class="fa-solid fa-robot text-pink-300 mr-2"></i>Telegram Bot Maker</h2><p class="muted text-sm">Node.js bot starter code generate করুন।</p></div>
+ <div class="glass rounded-2xl p-5 space-y-3">
+  <div><label class="label">Bot API Token (optional; নিরাপত্তার জন্য পরে .env ফাইলে রাখুন)</label><input id="botToken" type="password" class="field code" placeholder="Token না দিলেও placeholder code তৈরি হবে"></div>
+  <div><label class="label">Bot type</label><select id="botType" class="field" onchange="generateBot()"><option value="welcome">Welcome & Help Bot</option><option value="echo">Echo Bot</option><option value="uid">UID Input Demo Bot</option><option value="topup">Top-up Enquiry Bot</option></select></div>
+  <textarea id="botCode" rows="15" readonly class="field code text-xs leading-relaxed"></textarea>
+  <div class="flex flex-wrap gap-2"><button class="btn primary" onclick="generateBot()"><i class="fa-solid fa-arrows-rotate"></i> Generate</button><button class="btn" onclick="copyText('botCode')"><i class="fa-regular fa-copy"></i> Copy</button><button class="btn success" onclick="downloadText('index.js',document.getElementById('botCode').value)"><i class="fa-solid fa-download"></i> Download JS</button></div>
+  <p class="text-xs muted">Bot চালাতে Node.js এবং <span class="code">npm install node-telegram-bot-api dotenv</span> লাগবে। Token প্রকাশ্যে share করবেন না।</p>
+ </div>
+</section>
+<!-- VERSIONS -->
+<section id="versions" class="page space-y-4">
+ <div class="flex justify-between items-end gap-3"><div><h2 class="text-2xl font-black"><i class="fa-solid fa-layer-group text-amber-300 mr-2"></i>Project Version Hub</h2><p class="muted text-sm">আপনার saved project list ও source link।</p></div><button class="btn" onclick="go('admin')"><i class="fa-solid fa-plus"></i> Add</button></div>
+ <div class="flex gap-2"><input id="versionSearch" class="field" placeholder="Search project..." oninput="renderVersions()"><select id="versionSort" class="field !w-36" onchange="renderVersions()"><option value="new">Newest</option><option value="old">Oldest</option></select></div>
+ <div id="versionList" class="grid md:grid-cols-2 gap-3"></div>
+</section>
+<!-- TOOLS -->
+<section id="tools" class="page space-y-4">
+ <div><h2 class="text-2xl font-black"><i class="fa-solid fa-toolbox text-blue-300 mr-2"></i>Advanced Developer Tools</h2><p class="muted text-sm">দৈনন্দিন coding utility—সব browser-এই চলবে।</p></div>
+ <div class="grid md:grid-cols-2 gap-3">
+  <div class="glass rounded-2xl p-4 space-y-2"><b>Base64 Encoder / Decoder</b><textarea id="baseInput" class="field text-xs" rows="3" placeholder="Text or Base64..."></textarea><div class="flex gap-2"><button class="btn primary flex-1" onclick="base64(true)">Encode</button><button class="btn flex-1" onclick="base64(false)">Decode</button></div><textarea id="baseOutput" class="field text-xs" rows="3" readonly placeholder="Result..."></textarea><button class="btn text-xs" onclick="copyText('baseOutput')">Copy result</button></div>
+  <div class="glass rounded-2xl p-4 space-y-2"><b>QR Code Generator</b><input id="qrInput" class="field" placeholder="URL or text"><div class="flex gap-2"><button class="btn primary flex-1" onclick="makeQR()">Generate QR</button><button class="btn" onclick="downloadQR()">Download</button></div><div id="qrResult" class="min-h-28 bg-slate-950 rounded-xl flex items-center justify-center p-3 text-xs muted">QR preview will appear here</div></div>
+  <div class="glass rounded-2xl p-4 space-y-2"><b>Secure Random Token</b><input id="tokenOutput" class="field code" readonly placeholder="Generate token"><div class="flex gap-2"><button class="btn primary flex-1" onclick="makeToken()">Generate</button><button class="btn" onclick="copyText('tokenOutput')">Copy</button></div></div>
+  <div class="glass rounded-2xl p-4 space-y-2"><b>Color Picker</b><div class="flex gap-3 items-center"><input id="colorPicker" type="color" value="#28e7f2" class="w-14 h-12 bg-transparent" oninput="colorChanged()"><input id="colorHex" class="field code" value="#28e7f2" oninput="hexChanged()"></div><div id="colorSwatch" class="h-12 rounded-xl" style="background:#28e7f2"></div></div>
+  <div class="glass rounded-2xl p-4 space-y-2"><b>JSON Formatter / Validator</b><textarea id="jsonInput" class="field code text-xs" rows="4" placeholder='{"name":"Misbah"}'></textarea><button class="btn primary w-full" onclick="formatJSON()">Format & Validate</button><textarea id="jsonOutput" class="field code text-xs" rows="4" readonly placeholder="Formatted JSON..."></textarea></div>
+  <div class="glass rounded-2xl p-4 space-y-2"><b>URL Encoder / Decoder</b><textarea id="urlInput" class="field text-xs" rows="3" placeholder="Enter URL text..."></textarea><div class="flex gap-2"><button class="btn primary flex-1" onclick="urlTool(true)">Encode</button><button class="btn flex-1" onclick="urlTool(false)">Decode</button></div><textarea id="urlOutput" class="field text-xs" rows="2" readonly></textarea></div>
+  <div class="glass rounded-2xl p-4 space-y-2"><b>HTML Entity Escape</b><textarea id="htmlInput" class="field text-xs" rows="3" placeholder="<h1>Hello</h1>"></textarea><button class="btn primary w-full" onclick="htmlEscape()">Escape HTML</button><textarea id="htmlOutput" class="field text-xs" rows="2" readonly></textarea></div>
+  <div class="glass rounded-2xl p-4 space-y-2"><b>SHA-256 Hash</b><input id="hashInput" class="field" placeholder="Text to hash"><button class="btn primary w-full" onclick="makeHash()">Generate SHA-256</button><input id="hashOutput" class="field code text-xs" readonly></div>
+ </div>
+</section>
+<!-- RESOURCES -->
+<section id="resources" class="page space-y-4">
+ <div><h2 class="text-2xl font-black"><i class="fa-solid fa-box-open text-rose-300 mr-2"></i>Resources & Libraries</h2><p class="muted text-sm">প্রয়োজনীয় frontend library ও developer documentation।</p></div>
+ <div id="resourceList" class="grid md:grid-cols-2 gap-3"></div>
+</section>
+<!-- DASHBOARD -->
+<section id="dashboard" class="page space-y-4">
+ <div><h2 class="text-2xl font-black"><i class="fa-solid fa-chart-pie text-cyan-300 mr-2"></i>User Dashboard</h2><p class="muted text-sm">এই browser-এ সংরক্ষিত project ও activity summary।</p></div>
+ <div class="glass rounded-2xl p-5 flex items-center gap-4"><div class="w-14 h-14 rounded-2xl shimmer flex items-center justify-center text-2xl text-slate-950"><i class="fa-solid fa-user-astronaut"></i></div><div><b>Local Developer</b><div class="text-xs muted">Browser workspace • Guest mode</div></div></div>
+ <div class="grid grid-cols-2 md:grid-cols-3 gap-3"><div class="glass rounded-2xl p-4"><div id="dashSaved" class="text-3xl font-black text-cyan-300">0</div><div class="text-xs muted">Saved projects</div></div><div class="glass rounded-2xl p-4"><div id="dashDownloads" class="text-3xl font-black text-purple-300">0</div><div class="text-xs muted">Downloads</div></div><div class="glass rounded-2xl p-4"><div id="dashVersions" class="text-3xl font-black text-emerald-300">0</div><div class="text-xs muted">Library entries</div></div></div>
+ <div class="glass rounded-2xl p-4"><div class="flex justify-between items-center"><b>Saved website project</b><button class="btn text-xs" onclick="loadSavedProject()">Load into Builder</button></div><p id="savedProjectInfo" class="muted text-xs mt-2">No saved project yet.</p></div>
+ <div class="glass rounded-2xl p-4"><b>Workspace data</b><p class="muted text-xs mt-2">ডেটা export করে backup রাখতে পারেন।</p><div class="flex gap-2 mt-3"><button class="btn primary" onclick="exportBackup()">Export backup JSON</button><button class="btn" onclick="document.getElementById('backupFile').click()">Import backup</button><input id="backupFile" type="file" accept=".json,application/json" class="hidden" onchange="importBackup(event)"></div></div>
+</section>
+<!-- ADMIN -->
+<section id="admin" class="page space-y-4">
+ <div><h2 class="text-2xl font-black"><i class="fa-solid fa-shield-halved text-purple-300 mr-2"></i>Workspace Admin</h2><p class="muted text-sm">এই browser-এর project library পরিচালনা করুন। এটি secure server-side admin panel নয়।</p></div>
+ <div class="glass rounded-2xl p-5 space-y-3 max-w-2xl">
+  <b>Add new project / version</b><div><label class="label">Version label</label><input id="newVer" class="field" placeholder="Version 16.0"></div><div><label class="label">Project title</label><input id="newTitle" class="field" placeholder="My new project"></div><div><label class="label">Description</label><textarea id="newDesc" class="field" rows="2" placeholder="What does this project do?"></textarea></div><div><label class="label">Source / download URL</label><input id="newLink" class="field" type="url" placeholder="https://..."></div><button class="btn primary w-full" onclick="addVersion()"><i class="fa-solid fa-cloud-arrow-up"></i> Add to local library</button>
+ </div>
+ <div class="glass rounded-2xl p-5 space-y-3 max-w-2xl"><b>Announcement manager</b><textarea id="announcementInput" class="field" rows="2" placeholder="Write a platform announcement..."></textarea><button class="btn" onclick="saveAnnouncement()">Publish announcement locally</button><p id="announcementView" class="text-xs muted"></p></div>
+ <div class="glass rounded-2xl p-4 max-w-2xl"><b>Danger zone</b><p class="muted text-xs mt-1">Local saved items and activity can be cleared from this browser.</p><button class="btn mt-3 border-red-500/50 text-red-300" onclick="clearWorkspace()">Clear local workspace</button></div>
+</section>
+<footer class="text-center text-xs muted py-5 border-t border-slate-800/70">Developed with <span class="text-rose-400">♥</span> by <b class="gradient">HM Abu Sayed Misbah</b> · 2026</footer>
+</main>
+</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const navItems=[['home','house','Home Overview'],['builder','laptop-code','Website Builder'],['apk','mobile-screen-button','Android Project Studio'],['bot','robot','Telegram Bot Maker'],['versions','layer-group','Version Hub'],['tools','toolbox','Developer Tools'],['resources','box-open','Resources'],['dashboard','chart-pie','User Dashboard'],['admin','shield-halved','Workspace Admin']];
+function navHTML(){return navItems.map(([id,ic,label])=>`<button class="navitem" data-nav="${id}" onclick="go('${id}')"><i class="fa-solid fa-${ic} w-5"></i><span>${label}</span></button>`).join('')}
+$('desktopNav').innerHTML=navHTML();$('mobileNav').innerHTML=navHTML();
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('[data-nav]').forEach(n=>n.classList.toggle('active',n.dataset.nav===id));closeMenu();window.scrollTo({top:0,behavior:'smooth'});if(id==='dashboard')refreshDashboard();if(id==='versions')renderVersions()}
+function openMenu(){$('sidebar').classList.add('open');$('overlay').classList.add('show')}function closeMenu(){$('sidebar').classList.remove('open');$('overlay').classList.remove('show')}
+let toastTimer;function toast(msg){$('toastText').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2600)}
+function tick(){const d=new Date();$('clock').textContent=d.toLocaleTimeString('en-GB')}tick();setInterval(tick,1000);
+const templates={
+portfolio:`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://cdn.tailwindcss.com"><\/script><title>My Portfolio</title></head><body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-6"><main class="max-w-xl text-center"><div class="w-24 h-24 rounded-full bg-cyan-400 text-slate-950 grid place-items-center text-4xl font-black mx-auto">M</div><p class="text-cyan-300 mt-6">HELLO, I'M</p><h1 class="text-4xl font-black mt-2">Misbah Developer</h1><p class="text-slate-400 mt-4">Web developer • Creative problem solver • Bangladesh</p><a href="mailto:hello@example.com" class="inline-block bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-full mt-7">Contact Me</a></main></body></html>`,
+business:`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://cdn.tailwindcss.com"><\/script><title>Business Landing</title></head><body class="bg-slate-950 text-white p-7"><main class="max-w-3xl mx-auto py-16"><p class="text-cyan-300 font-bold">YOUR DIGITAL PARTNER</p><h1 class="text-5xl font-black mt-4">Grow your business <span class="text-cyan-300">online.</span></h1><p class="text-slate-400 mt-5">We create modern websites and digital experiences that help your business grow.</p><button class="bg-cyan-400 text-slate-950 rounded-xl px-6 py-3 mt-8 font-bold">Get Started</button></main></body></html>`,
+store:`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://cdn.tailwindcss.com"><\/script><title>Mini Store</title></head><body class="bg-slate-100 text-slate-900 p-5"><main class="max-w-xl mx-auto"><h1 class="text-3xl font-black text-emerald-700">MISBAH STORE</h1><p class="text-slate-500">Simple digital product shop</p><div class="grid grid-cols-2 gap-4 mt-8"><article class="bg-white rounded-2xl p-4 shadow"><div class="h-24 bg-emerald-100 rounded-xl grid place-items-center text-3xl">🎧</div><b class="block mt-3">Product One</b><p>৳ 499</p><button class="bg-emerald-600 text-white rounded-lg px-3 py-2 mt-2">Buy Now</button></article><article class="bg-white rounded-2xl p-4 shadow"><div class="h-24 bg-blue-100 rounded-xl grid place-items-center text-3xl">⌚</div><b class="block mt-3">Product Two</b><p>৳ 799</p><button class="bg-emerald-600 text-white rounded-lg px-3 py-2 mt-2">Buy Now</button></article></div></main></body></html>`,
+agency:`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://cdn.tailwindcss.com"><\/script><title>Tech Agency</title></head><body class="bg-[#0b1020] text-white p-6"><main class="max-w-3xl mx-auto py-12"><div class="text-violet-300 font-bold">MISBAH DIGITAL</div><h1 class="text-5xl font-black mt-5">Ideas into <span class="text-violet-300">reality.</span></h1><p class="text-slate-400 mt-5 max-w-lg">We design and build websites, apps and digital products for ambitious teams.</p><div class="grid sm:grid-cols-3 gap-3 mt-10"><div class="bg-white/5 p-5 rounded-xl">Web Design</div><div class="bg-white/5 p-5 rounded-xl">Development</div><div class="bg-white/5 p-5 rounded-xl">App Solutions</div></div></main></body></html>`
+};
+function loadTemplate(){ $('editor').value=templates[$('template').value]||templates.portfolio;refreshPreview()}
+let previewTimer;function debouncedPreview(){clearTimeout(previewTimer);previewTimer=setTimeout(refreshPreview,450)}
+function refreshPreview(){const f=$('preview');f.srcdoc=$('editor').value;toast('Live preview updated')}
+function setAccent(){const c=$('accent').value;$('editor').value=$('editor').value.replace(/text-cyan-300|text-cyan-400|bg-cyan-400/g,`text-[${c}]`);refreshPreview()}
+function downloadBlob(name,blob){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);incrementDownloads()}
+function downloadText(name,text){downloadBlob(name,new Blob([text],{type:'text/plain;charset=utf-8'}));toast(name+' downloaded')}
+async function exportWebsite(){if(!window.JSZip){toast('ZIP library load হয়নি');return}const zip=new JSZip(),title=$('siteTitle').value.trim()||'misbah-project';zip.file('index.html',$('editor').value);zip.file('README.md',`# ${title}\n\nCreated with Misbah Developer Studio.\n\nOpen index.html in a browser.`);downloadBlob(title.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.zip',await zip.generateAsync({type:'blob'}));toast('Website ZIP তৈরি হয়েছে')}
+function saveProject(){localStorage.setItem('md_saved_project',JSON.stringify({title:$('siteTitle').value,code:$('editor').value,updated:new Date().toISOString()}));refreshDashboard();toast('Project এই browser-এ save হয়েছে')}
+function loadSavedProject(){try{const p=JSON.parse(localStorage.getItem('md_saved_project'));if(!p)throw 0;$('siteTitle').value=p.title;$('editor').value=p.code;go('builder');refreshPreview();toast('Saved project loaded')}catch(e){toast('কোনো saved project পাওয়া যায়নি')}}
+function safeXml(s){return String(s).replace(/[<>&"']/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&apos;'}[c]))}
+async function makeAndroidZip(){if(!window.JSZip){toast('ZIP library unavailable');return}const app=$('appName').value.trim()||'Misbah App',pkg=$('packageId').value.trim(),url=$('appUrl').value.trim(),version=$('appVersion').value.trim()||'1.0.0';if(!/^[a-zA-Z][\w]*(\.[a-zA-Z][\w]*)+$/.test(pkg)){toast('Package ID সঠিকভাবে লিখুন');return}if(url&&!/^https:\/\/|^http:\/\//i.test(url)){toast('URL http:// অথবা https:// দিয়ে শুরু করুন');return}
+const zip=new JSZip(),root='MisbahAndroidProject/';zip.file(root+'settings.gradle',`pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }\ndependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }\nrootProject.name = "${safeXml(app)}"\ninclude ':app'`);
+zip.file(root+'build.gradle',`plugins { id 'com.android.application' version '8.7.3' apply false }`);
+zip.file(root+'gradle.properties','org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8\nandroid.useAndroidX=true\n');
+zip.file(root+'app/build.gradle',`plugins { id 'com.android.application' }\n\nandroid { namespace '${pkg}'; compileSdk 35\n defaultConfig { applicationId '${pkg}'; minSdk 23; targetSdk 35; versionCode 1; versionName '${safeXml(version)}' }\n}`);
+let perms=$('permInternet').checked?'<uses-permission android:name="android.permission.INTERNET" />':'';if($('permCamera').checked)perms+='<uses-permission android:name="android.permission.CAMERA" />';
+zip.file(root+'app/src/main/AndroidManifest.xml',`<manifest xmlns:android="http://schemas.android.com/apk/res/android">${perms}<application android:theme="@android:style/Theme.Material.Light.NoActionBar" android:label="${safeXml(app)}" android:usesCleartextTraffic="false"><activity android:name=".MainActivity" android:screenOrientation="${$('orientation').value}" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>`);
+zip.file(root+'app/src/main/java/'+pkg.replace(/\./g,'/')+'/MainActivity.java',`package ${pkg};\nimport android.app.*;import android.os.*;import android.webkit.*;\npublic class MainActivity extends Activity { public void onCreate(Bundle b){super.onCreate(b); WebView w=new WebView(this);setContentView(w);w.getSettings().setJavaScriptEnabled(true);w.getSettings().setDomStorageEnabled(true);w.loadUrl("${url.replace(/"/g,'%22')}");} }`);
+zip.file(root+'README.md',`# ${app}\n\nAndroid Studio WebView starter project.\n\n1. Open this folder in Android Studio.\n2. Let Gradle sync.\n3. Review permissions and app configuration.\n4. Build > Build APK(s).\n\nWebsite: ${url}\n\nThis ZIP is source code, not a compiled or signed APK.`);
+downloadBlob('misbah-android-source.zip',await zip.generateAsync({type:'blob'}));toast('Android Studio source ZIP তৈরি হয়েছে')}
+function generateBot(){const token=$('botToken').value.trim()||'process.env.BOT_TOKEN';const type=$('botType').value;let body=`const TelegramBot = require('node-telegram-bot-api');\nrequire('dotenv').config();\nconst token = ${token==='process.env.BOT_TOKEN'?'process.env.BOT_TOKEN':JSON.stringify(token)};\nif (!token) throw new Error('Set BOT_TOKEN in your .env file');\nconst bot = new TelegramBot(token, { polling: true });\n\n`;if(type==='welcome')body+=`bot.onText(/\\/start/, (msg) => bot.sendMessage(msg.chat.id, 'আসসালামু আলাইকুম! Welcome to Misbah Bot.\\n/help লিখে নির্দেশনা দেখুন।'));\nbot.onText(/\\/help/, (msg) => bot.sendMessage(msg.chat.id, 'Available commands:\\n/start - Start bot\\n/help - Show help'));`;if(type==='echo')body+=`bot.on('message', (msg) => { if (msg.text && !msg.text.startsWith('/')) bot.sendMessage(msg.chat.id, msg.text); });`;if(type==='uid')body+=`bot.onText(/\\/check\\s+(\\d+)/, (msg, match) => { const uid = match[1]; bot.sendMessage(msg.chat.id, 'আপনার দেওয়া UID: ' + uid + '\\nএটি demo response; প্রকৃত player data API যুক্ত করতে হবে।'); });`;if(type==='topup')body+=`bot.onText(/\\/topup/, (msg) => bot.sendMessage(msg.chat.id, 'Top-up enquiry received. Please contact the official support team.'));\nbot.on('message', (msg) => { if (msg.text === '/start') bot.sendMessage(msg.chat.id, 'Welcome! /topup লিখে enquiry দিন।'); });`;body+=`\n\nbot.on('polling_error', (err) => console.error('Polling error:', err.message));\nconsole.log('Misbah Telegram bot is running...');`;$('botCode').value=body}
+async function copyText(id){try{await navigator.clipboard.writeText($(id).value);toast('Copied to clipboard')}catch(e){$(id).select();document.execCommand('copy');toast('Copied')}}
+function base64(enc){const s=$('baseInput').value;try{$('baseOutput').value=enc?btoa(unescape(encodeURIComponent(s))):decodeURIComponent(escape(atob(s.trim())))}catch(e){$('baseOutput').value='Invalid input';toast('Input format invalid')}}
+function makeQR(){const s=$('qrInput').value.trim();if(!s){toast('Text বা URL লিখুন');return}$('qrResult').innerHTML=`<img alt="QR code" class="w-40 h-40" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(s)}">`}
+function downloadQR(){const img=$('qrResult').querySelector('img');if(!img){toast('আগে QR generate করুন');return}fetch(img.src).then(r=>r.blob()).then(b=>downloadBlob('misbah-qr.png',b)).catch(()=>window.open(img.src,'_blank'))}
+function makeToken(){const b=crypto.getRandomValues(new Uint8Array(32));$('tokenOutput').value=Array.from(b,x=>x.toString(16).padStart(2,'0')).join('');}
+function colorChanged(){$('colorHex').value=$('colorPicker').value;$('colorSwatch').style.background=$('colorPicker').value}function hexChanged(){if(/^#[0-9a-f]{6}$/i.test($('colorHex').value)){$('colorPicker').value=$('colorHex').value;$('colorSwatch').style.background=$('colorHex').value}}
+function formatJSON(){try{$('jsonOutput').value=JSON.stringify(JSON.parse($('jsonInput').value),null,2);toast('Valid JSON')}catch(e){$('jsonOutput').value='Invalid JSON: '+e.message}}
+function urlTool(enc){try{$('urlOutput').value=enc?encodeURIComponent($('urlInput').value):decodeURIComponent($('urlInput').value)}catch(e){$('urlOutput').value='Invalid encoded text'}}
+function htmlEscape(){$('htmlOutput').value=$('htmlInput').value.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function makeHash(){const data=new TextEncoder().encode($('hashInput').value),hash=await crypto.subtle.digest('SHA-256',data);$('hashOutput').value=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('')}
+const defaults=[
+{id:1,ver:'Version 1.0',title:'Age Calculator Pro',desc:'লাইভ বয়সের হিসাব ও জন্মদিনের কাউন্টডাউন।',link:'https://github.com/'},
+{id:2,ver:'Version 2.0',title:'AI Assistant UI',desc:'AI chat interface starter project.',link:'https://github.com/'},
+{id:3,ver:'Version 5.5',title:'TopUp Store UI',desc:'Responsive game top-up store interface.',link:'https://github.com/'},
+{id:4,ver:'Version 12.0',title:'HTML to Android WebView',desc:'Android Studio WebView source starter.',link:'https://developer.android.com/'},
+{id:5,ver:'Version 15.0',title:'Telegram Bot Starter',desc:'Node.js Telegram bot starter code.',link:'https://github.com/'}
+];
+function versions(){try{return JSON.parse(localStorage.getItem('md_versions'))||defaults}catch(e){return defaults}}
+function saveVersions(a){localStorage.setItem('md_versions',JSON.stringify(a))}
+function renderVersions(){const q=($('versionSearch')?.value||'').toLowerCase();let a=versions().filter(x=>(x.title+x.desc+x.ver).toLowerCase().includes(q));if($('versionSort')?.value==='old')a.reverse();$('versionList').innerHTML=a.map(x=>`<article class="glass rounded-2xl p-4 flex flex-col gap-3"><div class="flex justify-between gap-2"><span class="text-xs text-cyan-300 font-bold code">${escapeHTML(x.ver)}</span><span class="text-[10px] muted">#${x.id}</span></div><div><h3 class="font-bold">${escapeHTML(x.title)}</h3><p class="text-xs muted mt-1">${escapeHTML(x.desc)}</p></div><div class="flex gap-2 mt-auto"><a class="btn primary text-xs flex-1" href="${safeURL(x.link)}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open source</a><button class="btn text-xs" onclick="deleteVersion(${x.id})" title="Delete"><i class="fa-solid fa-trash"></i></button></div></article>`).join('')||'<div class="glass rounded-xl p-5 muted text-sm">কোনো project পাওয়া যায়নি।</div>';$('statVersions').textContent=versions().length}
+function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function safeURL(s){try{const u=new URL(s);return ['http:','https:'].includes(u.protocol)?u.href:'#'}catch(e){return '#'}}
+function addVersion(){const ver=$('newVer').value.trim(),title=$('newTitle').value.trim(),desc=$('newDesc').value.trim(),link=$('newLink').value.trim();if(!ver||!title||!/^https?:\/\//i.test(link)){toast('Version, title ও valid URL প্রয়োজন');return}const a=versions();a.unshift({id:Date.now(),ver,title,desc,link});saveVersions(a);['newVer','newTitle','newDesc','newLink'].forEach(id=>$(id).value='');renderVersions();refreshDashboard();toast('Project local library-তে যুক্ত হয়েছে');go('versions')}
+function deleteVersion(id){if(!confirm('এই project entry মুছে ফেলবেন?'))return;saveVersions(versions().filter(x=>x.id!==id));renderVersions();refreshDashboard();toast('Entry deleted')}
+const resources=[['Tailwind CSS','Utility-first CSS framework','https://tailwindcss.com/docs','fa-wind'],['Font Awesome','Icon library and toolkit','https://fontawesome.com/docs','fa-icons'],['MDN Web Docs','HTML, CSS and JavaScript reference','https://developer.mozilla.org/','fa-book'],['JavaScript.info','Modern JavaScript tutorial','https://javascript.info/','fa-js'],['Android Developers','Official Android development guides','https://developer.android.com/','fa-android'],['Node.js','JavaScript runtime documentation','https://nodejs.org/docs/latest/api/','fa-brands fa-node-js']];
+$('resourceList').innerHTML=resources.map(([n,d,u,i])=>`<a class="glass rounded-2xl p-4 flex items-center gap-4 hover:border-cyan-400/50 transition" href="${u}" target="_blank" rel="noopener"><div class="w-11 h-11 rounded-xl bg-cyan-400/10 text-cyan-300 grid place-items-center text-xl"><i class="fa-brands ${i.includes('brands')?i:'fa-solid '+i}"></i></div><div class="flex-1"><b>${n}</b><p class="text-xs muted">${d}</p></div><i class="fa-solid fa-arrow-up-right-from-square text-xs muted"></i></a>`).join('');
+function incrementDownloads(){const n=+(localStorage.getItem('md_downloads')||0)+1;localStorage.setItem('md_downloads',n);refreshDashboard()}
+function refreshDashboard(){const n=+(localStorage.getItem('md_downloads')||0),v=versions().length,p=localStorage.getItem('md_saved_project');$('dashSaved').textContent=p?1:0;$('dashDownloads').textContent=n;$('dashVersions').textContent=v;$('statDownloads').textContent=n;$('dashVersions').textContent=v;$('savedProjectInfo').textContent=p?JSON.parse(p).title+' • '+new Date(JSON.parse(p).updated).toLocaleString():'No saved project yet.'}
+function exportBackup(){const data={versions:versions(),project:localStorage.getItem('md_saved_project'),downloads:localStorage.getItem('md_downloads'),announcement:localStorage.getItem('md_announcement')};downloadText('misbah-workspace-backup.json',JSON.stringify(data,null,2))}
+function importBackup(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.versions)saveVersions(d.versions);if(d.project)localStorage.setItem('md_saved_project',d.project);if(d.downloads)localStorage.setItem('md_downloads',d.downloads);if(d.announcement)localStorage.setItem('md_announcement',d.announcement);renderVersions();refreshDashboard();toast('Backup imported')}catch(err){toast('Invalid backup file')}};r.readAsText(f)}
+function saveAnnouncement(){const s=$('announcementInput').value.trim();if(!s){toast('Announcement লিখুন');return}localStorage.setItem('md_announcement',s);$('announcementView').textContent='Published locally: '+s;toast('Announcement saved')}
+function clearWorkspace(){if(!confirm('সব local project, version ও activity মুছে ফেলবেন?'))return;['md_versions','md_saved_project','md_downloads','md_announcement'].forEach(k=>localStorage.removeItem(k));renderVersions();refreshDashboard();$('announcementView').textContent='';toast('Local workspace cleared')}
+function init(){loadTemplate();generateBot();renderVersions();refreshDashboard();$('quickCards').innerHTML=[['builder','laptop-code','Website Builder','Build & export HTML'],['apk','android','Android Studio','Create source ZIP'],['bot','robot','Telegram Bot','Generate Node.js code'],['versions','layer-group','Version Hub','Manage projects'],['tools','screwdriver-wrench','Developer Tools','8+ useful utilities'],['resources','book-open','Resources','Docs & libraries']].map(([id,ic,t,d])=>`<button onclick="go('${id}')" class="glass rounded-2xl p-4 text-left hover:border-cyan-400/50 transition hover:-translate-y-1"><div class="text-2xl text-cyan-300 mb-3"><i class="fa-solid fa-${ic}"></i></div><b>${t}</b><p class="text-xs muted mt-1">${d}</p></button>`).join('');const a=localStorage.getItem('md_announcement');if(a){$('announcementView').textContent=a;$('announcementInput').value=a}}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body></html>
